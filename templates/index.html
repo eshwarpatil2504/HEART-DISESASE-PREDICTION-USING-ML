@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Heart Disease Prediction</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+    
+      background-color: #f8f9fa; /* Set your desired background color */
+      background-image: url('https://media.istockphoto.com/id/1457409135/photo/red-heart-stethoscope-on-electrocardiogram-paper.jpg?s=2048x2048&w=is&k=20&c=BE1BvO8l6O86-zVMeorWp-Y_meio5YUjjjz6dNbiKIY='); 
+      /* background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRmaWapyr6VPz3dRsUmdl3QQ-_1eInqF-N-Fw&usqp=CAU'); Set the path to your background image */
+      background-size: cover; /* Adjust according to your needs */
+    }
+
+    .container {
+      margin-top: 50px;
+    }
+  </style>
+</head>
+<body>
+
+  <form action='/predict' method="POST"></form>
+
+<div class="container">
+  <h2 class="text-center mb-4">Heart Disease Prediction</h2>
+  <form id="heartDiseaseForm">
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="age">Age</label>
+        <input type="number" class="form-control" id="age" name="age" required>
+      </div>
+      <div class="form-group col-md-6">
+        <label for="sex">Sex</label>
+        <select class="form-control" id="sex" name="sex" required>
+          <option value="0">Female</option>
+          <option value="1">Male</option>
+        </select>
+      </div>
+    </div>
+    <!-- ... (previous HTML code) ... -->
+
+<div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="trestbps">Resting Blood Pressure (mm Hg)</label>
+      <input type="number" class="form-control" id="trestbps" name="trestbps" required>
+    </div>
+    <div class="form-group col-md-6">
+      <label for="chol">Serum Cholesterol (mg/dl)</label>
+      <input type="number" class="form-control" id="chol" name="chol" required>
+    </div>
+  </div>
+  
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="fbs">Fasting Blood Sugar > 120 mg/dl</label>
+      <select class="form-control" id="fbs" name="fbs" required>
+        <option value="0">No</option>
+        <option value="1">Yes</option>
+      </select>
+    </div>
+    <div class="form-group col-md-6">
+      <label for="restecg">Resting Electrocardiographic Results</label>
+      <select class="form-control" id="restecg" name="restecg" required>
+        <option value="0">Normal</option>
+        <option value="1">ST-T wave abnormality</option>
+        <option value="2">Probable or definite left ventricular hypertrophy</option>
+      </select>
+    </div>
+  </div>
+  
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="thalach">Maximum Heart Rate Achieved</label>
+      <input type="number" class="form-control" id="thalach" name="thalach" required>
+    </div>
+    <div class="form-group col-md-6">
+      <label for="exang">Exercise Induced Angina</label>
+      <select class="form-control" id="exang" name="exang" required>
+        <option value="0">No</option>
+        <option value="1">Yes</option>
+      </select>
+    </div>
+  </div>
+  
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="oldpeak">ST Depression Induced by Exercise Relative to Rest</label>
+      <input type="number" class="form-control" id="oldpeak" name="oldpeak" step="0.1" required>
+    </div>
+    <div class="form-group col-md-6">
+      <label for="slope">Slope of the Peak Exercise ST Segment</label>
+      <select class="form-control" id="slope" name="slope" required>
+        <option value="0">Upsloping</option>
+        <option value="1">Flat</option>
+        <option value="2">Downsloping</option>
+      </select>
+    </div>
+  </div>
+  
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="ca">Number of Major Vessels Colored by Fluoroscopy</label>
+      <input type="number" class="form-control" id="ca" name="ca" required>
+    </div>
+    <div class="form-group col-md-6">
+      <label for="thal">Thalassemia</label>
+      <select class="form-control" id="thal" name="thal" required>
+        <option value="0">Normal</option>
+        <option value="1">Fixed Defect</option>
+        <option value="2">Reversible Defect</option>
+      </select>
+    </div>
+  </div>
+  
+  <!-- ... (remaining HTML code) ... -->
+  
+
+    <div class="form-row">
+      <!-- Add similar blocks for other features -->
+      <!-- Example: Chest Pain -->
+      <div class="form-group col-md-6">
+        <label for="cp">Chest Pain Type</label>
+        <select class="form-control" id="cp" name="cp" required>
+          <option value="0">Typical Angina</option>
+          <option value="1">Atypical Angina</option>
+          <option value="2">Non-Anginal Pain</option>
+          <option value="3">Asymptomatic</option>
+        </select>
+      </div>
+      <!-- Continue adding similar blocks for other features -->
+    </div>
+
+    <!-- Add more form groups for other features -->
+    Class: {{result}} <br>
+
+    <button type="submit" class="btn btn-primary">Predict</button>
+  </form>
+</div>
+
+<!-- Bootstrap JS and Popper.js -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>
